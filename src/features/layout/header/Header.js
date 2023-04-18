@@ -7,7 +7,7 @@ const Header = () => {
 	return (
 		<StyledHeader>
 			<MainNav />
-			<h2>
+			<h2 className="red">
 				<Link to="">Lucky Dynasty</Link>
 			</h2>
 			<Cart />
