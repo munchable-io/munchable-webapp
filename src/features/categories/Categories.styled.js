@@ -4,6 +4,10 @@ export const StyledCategories = styled.div`
 	display: flex;
 	flex-direction: column;
 	row-gap: 0.5rem;
+	position: sticky;
+	top: 0;
+	background: white;
+	padding: 0.5rem 0;
 
 	.overflow {
 		overflow-x: scroll;
@@ -11,11 +15,10 @@ export const StyledCategories = styled.div`
 	}
 `;
 
-export const StyledCategory = styled.div`
+export const StyledCategory = styled.a`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	max-width: 70px;
 	min-width: 70px;
 
 	span {
@@ -32,5 +35,6 @@ export const StyledCategory = styled.div`
 
 	p {
 		font-size: 14px;
+		white-space: nowrap;
 	}
 `;
