@@ -19,7 +19,7 @@ export const StyledCategory = styled.a`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	min-width: 70px;
+	width: max-content;
 
 	span {
 		border: 2px solid black;
