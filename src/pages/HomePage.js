@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import Categories from "../features/categories/Categories";
 import SearchBar from "../features/searchBar/SearchBar";
-import Modal from "../features/ui/modal/Modal";
-import { StyledOverlay } from "../features/ui/overlay/Overlay.styled";
 import { useDispatch } from "react-redux";
 import { fetchItems } from "../features/menu/items.slice";
 import { fetchCategories } from "../features/categories/categories.slice";
 import Menu from "../features/menu/Menu";
+import ItemModal from "../features/menu/itemModal/ItemModal";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
@@ -25,19 +24,7 @@ const HomePage = () => {
 				<Menu setMenuItemModalOpen={setMenuItemModalOpen} />
 			</div>
 			{menuItemModalOpen && (
-				<StyledOverlay>
-					<Modal
-						title="Test Title"
-						onExit={() => setMenuItemModalOpen(false)}
-					>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing
-							elit. Necessitatibus, earum omnis harum illum odio
-							voluptatem dicta dignissimos officia quas
-							consequuntur.
-						</p>
-					</Modal>
-				</StyledOverlay>
+				<ItemModal setMenuItemModalOpen={setMenuItemModalOpen} />
 			)}
 		</>
 	);

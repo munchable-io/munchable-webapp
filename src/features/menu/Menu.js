@@ -1,12 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MenuCategory } from "./Menu.styled";
 import { getCategories } from "../categories/categories.slice";
-import { getItems } from "./items.slice";
+import { getItems, setSelectedItem } from "./items.slice";
 import MenuItem from "./menuItem/MenuItem";
 
 const Menu = ({ setMenuItemModalOpen }) => {
+	const dispatch = useDispatch();
+
 	const categories = useSelector(getCategories);
 	const items = useSelector(getItems);
+
+	const handleItemClick = (id) => {
+		dispatch(setSelectedItem(id));
+		setMenuItemModalOpen(true);
+	};
 
 	return (
 		<>
@@ -22,7 +29,7 @@ const Menu = ({ setMenuItemModalOpen }) => {
 							?.map((item) => (
 								<MenuItem
 									key={item._id}
-									onClick={() => setMenuItemModalOpen(true)}
+									onClick={() => handleItemClick(item._id)}
 									name={item.name}
 									price={item.price}
 								/>

@@ -5,6 +5,7 @@ const BASE_URL = "https://munchable-backend.herokuapp.com";
 // initial state
 const initialState = {
 	items: [],
+	selectedItem: null,
 	status: "idle", // idle | loading | succeeded | failed
 	error: null,
 };
@@ -23,7 +24,13 @@ export const fetchItems = createAsyncThunk("items/getItems", async () => {
 const itemsSlice = createSlice({
 	name: "items",
 	initialState,
-	reducers: {},
+	reducers: {
+		setSelectedItem(state, action) {
+			state.selectedItem = state.items.find(
+				(item) => item._id === action.payload
+			);
+		},
+	},
 	extraReducers(builder) {
 		builder
 			.addCase(fetchItems.pending, (state, action) => {
@@ -42,8 +49,10 @@ const itemsSlice = createSlice({
 
 // functions
 export const getItems = (state) => state.items.items;
+export const getSelectedItems = (state) => state.items.selectedItem;
 
 // actions
+export const { setSelectedItem } = itemsSlice.actions;
 
 // export reducer
 export default itemsSlice.reducer;
