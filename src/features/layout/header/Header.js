@@ -7,7 +7,7 @@ const Header = () => {
 	return (
 		<StyledHeader>
 			{/* <MainNav /> */}
-			<h2 className="red">
+			<h2>
 				<Link to="">Lucky Dynasty</Link>
 			</h2>
 			{/* <Cart /> */}
