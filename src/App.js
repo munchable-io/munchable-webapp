@@ -9,27 +9,53 @@ import Dashboard from "./pages/Restaurant/Dashboard";
 import Location from "./pages/Location";
 import Editor from "./pages/Location/Editor";
 import LocationSettings from "./pages/Location/LocationSettings";
+import Layout from "./features/layout/Layout";
+import Unauthorized from "./pages/Unauthorized";
+import RequireAuth from "./features/login/RequireAuth";
 
 const App = () => {
 	return (
-		<>
-			<Routes>
+		<Routes>
+			<Route path="/" element={<Layout />}>
 				<Route index element={<Home />} />
 				<Route path="register" element={<Register />} />
 				<Route path="login" element={<Login />} />
+				<Route path="unauthorized" element={<Unauthorized />} />
+
 				<Route path="restaurants/:restaurantName">
 					<Route index element={<Restaurant />} />
-					<Route path="settings" element={<RestaurantSettings />} />
-					<Route path="dashboard" element={<Dashboard />} />
+					<Route
+						element={
+							<RequireAuth allowedRoles={["admin", "manager"]} />
+						}
+					>
+						<Route
+							path="settings"
+							element={<RestaurantSettings />}
+						/>
+						<Route path="dashboard" element={<Dashboard />} />
+					</Route>
 					<Route path=":locationId">
 						<Route index element={<Location />} />
-						<Route path="editor" element={<Editor />} />
-						<Route path="settings" element={<LocationSettings />} />
+						<Route
+							element={
+								<RequireAuth
+									allowedRoles={["admin", "manager"]}
+								/>
+							}
+						>
+							<Route path="editor" element={<Editor />} />
+							<Route
+								path="settings"
+								element={<LocationSettings />}
+							/>
+						</Route>
 					</Route>
 				</Route>
+
 				<Route path="*" element={<Error />} />
-			</Routes>
-		</>
+			</Route>
+		</Routes>
 	);
 };
 
