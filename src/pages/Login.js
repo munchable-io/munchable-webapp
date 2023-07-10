@@ -3,12 +3,8 @@ import Divider from "../features/ui/divider/Divider";
 import Input from "../features/ui/input/Input";
 import Button from "../features/ui/button/Button";
 import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-	getAccessToken,
-	getRole,
-	handleLogin,
-} from "../features/login/loginSlice";
+import { useDispatch } from "react-redux";
+import { handleLogin } from "../features/auth/loginSlice";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -20,19 +16,12 @@ const Login = () => {
 	const location = useLocation();
 	const from = location.state?.from?.pathname || "/";
 
-	const accessToken = useSelector(getAccessToken);
-	const role = useSelector(getRole);
-
 	const emailRef = useRef("");
 	const passwordRef = useRef("");
 
 	useEffect(() => {
 		emailRef.current.focus();
 	}, []);
-
-	useEffect(() => {
-		accessToken && role && console.log({ accessToken, role });
-	}, [accessToken, role]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

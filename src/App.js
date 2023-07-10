@@ -4,14 +4,15 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Restaurant from "./pages/Restaurant";
 import Error from "./pages/Error";
+import Layout from "./features/layout/Layout";
+import Unauthorized from "./pages/Unauthorized";
+import PersistLogin from "./features/auth/PersistLogin";
+import RequireAuth from "./features/auth/RequireAuth";
 import RestaurantSettings from "./pages/Restaurant/RestaurantSettings";
 import Dashboard from "./pages/Restaurant/Dashboard";
 import Location from "./pages/Location";
 import Editor from "./pages/Location/Editor";
 import LocationSettings from "./pages/Location/LocationSettings";
-import Layout from "./features/layout/Layout";
-import Unauthorized from "./pages/Unauthorized";
-import RequireAuth from "./features/login/RequireAuth";
 
 const App = () => {
 	return (
@@ -24,19 +25,7 @@ const App = () => {
 
 				<Route path="restaurants/:restaurantName">
 					<Route index element={<Restaurant />} />
-					<Route
-						element={
-							<RequireAuth allowedRoles={["admin", "manager"]} />
-						}
-					>
-						<Route
-							path="settings"
-							element={<RestaurantSettings />}
-						/>
-						<Route path="dashboard" element={<Dashboard />} />
-					</Route>
-					<Route path=":locationId">
-						<Route index element={<Location />} />
+					<Route element={<PersistLogin />}>
 						<Route
 							element={
 								<RequireAuth
@@ -44,11 +33,29 @@ const App = () => {
 								/>
 							}
 						>
-							<Route path="editor" element={<Editor />} />
 							<Route
 								path="settings"
-								element={<LocationSettings />}
+								element={<RestaurantSettings />}
 							/>
+							<Route path="dashboard" element={<Dashboard />} />
+						</Route>
+					</Route>
+					<Route path=":locationId">
+						<Route index element={<Location />} />
+						<Route element={<PersistLogin />}>
+							<Route
+								element={
+									<RequireAuth
+										allowedRoles={["admin", "manager"]}
+									/>
+								}
+							>
+								<Route path="editor" element={<Editor />} />
+								<Route
+									path="settings"
+									element={<LocationSettings />}
+								/>
+							</Route>
 						</Route>
 					</Route>
 				</Route>

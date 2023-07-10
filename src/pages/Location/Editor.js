@@ -1,5 +1,5 @@
 const Editor = () => {
-	return <div>Editor</div>;
+	return <div>LocationEditor</div>;
 };
 
 export default Editor;
